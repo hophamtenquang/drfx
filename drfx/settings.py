@@ -60,10 +60,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'drfx.urls'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'staticfiles'),
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['drfx/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,7 +130,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

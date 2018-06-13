@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% block title %}PM - Home Page{% endblock %}
+
+{% block content %}
+<div class="content p-4">
+    <h2 class="mb-4">Home Page</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            Welcome <b>{{ request.user.username }}</b>
+        </div>
+    </div>
+</div>
+{% endblock %}

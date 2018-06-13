@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% include "base/head.html" %}
+    <title>{% block title %}Product Management{% endblock %}</title>
+</head>
+<body class="bg-light" ng-app="ProductManager">
+
+    {% include "base/nav.html" %}
+
+<div class="d-flex">
+    {% include "base/sidebar.html" %}
+
+    {% block content %}
+    <div class="content p-4">
+        <h2 class="mb-4">Blank/Starter</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                This is a blank page you can use as a starting point.
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/bootadmin.min.js"></script>
+{% block footer_javascript %}
+
+{% endblock %}
+</body>
+</html>

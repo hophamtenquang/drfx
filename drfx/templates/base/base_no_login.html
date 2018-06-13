@@ -1,0 +1,24 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% include "base/head.html" %}
+    <title>{% block title %}Product Management{% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body class="bg-light" ng-app="ProductManager">
+
+<div class="d-flex">
+
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="static/js/base.js"></script>
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/bootadmin.min.js"></script>
+{% block footer_javascript %}
+
+{% endblock %}
+</body>
+</html>
