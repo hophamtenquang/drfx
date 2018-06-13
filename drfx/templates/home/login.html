@@ -7,15 +7,21 @@
     <h2>Login</h2>
     <form>
       <div class="form-group">
+        <p style="color: red">{$ error $}</p>
+      </div>
+      <div class="form-group">
         <label for="exampleInputEmail1">Username</label>
-        <input ng-model="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter usename">
+        <input ng-model="username" type="text" class="form-control" id="exampleInputEmail1"
+         ng-change="errorRemove()"
+         aria-describedby="emailHelp" placeholder="Enter usename">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
-        <input ng-model="pass" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <input ng-model="pass" type="password" class="form-control"
+                   ng-change="errorRemove()"
+         id="exampleInputPassword1" placeholder="Password">
       </div>
       <button class="btn btn-primary" ng-click="login()">Submit</button>
-      <p>{{ error }}</p>
     </form>
   </div>
 </div>

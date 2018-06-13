@@ -1,5 +1,5 @@
 var app = angular.module("ProductManager", []);
 
-app.controller("loginCtrl", function($scope) {
-    console.log('a');
-});
+app.config(['$qProvider', function ($qProvider) {
+    $qProvider.errorOnUnhandledRejections(false);
+}]);
