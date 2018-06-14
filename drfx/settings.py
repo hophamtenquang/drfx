@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'api',
     'users',
+    'categories',
 ]
 
 MIDDLEWARE = [
