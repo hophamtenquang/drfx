@@ -20,8 +20,9 @@ app.controller("categoryCtrl", function($scope, $http, $window) {
         }
         $http.post($list_category_url, $scope.newcate).then(
             function (data) {
-                $scope.success_create = "Create Success category " + data.title;
+                $scope.success_create = "Create Success category " + data.data.title;
                 $scope.get_list_categories();
+                $scope.newCate = null;
             }, function (error_data) {
                 $scope.error.create = error_data.data.Exists[0];
                 console.log($scope.error.create);
