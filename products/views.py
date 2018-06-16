@@ -40,8 +40,6 @@ class ProductListView(generics.ListCreateAPIView):
 
         title = request.data['title']
         check, similar_title = check_if_title_is_similar(title)
-        import pdb
-        pdb.set_trace()
         if check:
             raise exceptions.ValidationError({'similar_title' : 'Tên gần giống với {}. Không thể tạo'.format(similar_title.encode('utf-8').strip())});
         return super(ProductListView, self).create(request, *args, **kwargs)
