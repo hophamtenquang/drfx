@@ -3,12 +3,139 @@
 
 {% block content %}
 <div class="content p-4">
-    <h2 class="mb-4">Home Page</h2>
+    <div class="container-fluid" ng-controller="SearchProductCtrl">
 
-    <div class="card mb-4">
-        <div class="card-body">
-            Welcome <b>{{ request.user.username }}</b>
+      <div class="col-xs-12">
+          <h2 class="mb-4">Danh sách sản phẩm</h2>
+          <h3>Tìm kiếm</h3>
+              <div class="form-group">
+                  <label class="control-label col-sm-2" for="title">Ngành hàng:</label>
+                  <div class="col-sm-4">
+                    <select class="form-control col-sm-10" id="sel1" ng-model="category_filter" ng-change="log()">
+                        <option value="-1">All</option>
+                      <option ng-repeat="c in categories" ng-selected="c.id == category_filter" value="{$ c.id $}">{$ c.code $} - {$ c.title $}</option>
+                  </select>
+                  </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="title">Nhà sản xuất:</label>
+                <div class="col-sm-4">
+                 <select class="form-control col-sm-10" id="sel2" ng-model="factory_filter" ng-change="log()">
+                     <option value="-1">All</option>
+                  <option ng-repeat="c in factories" ng-selected="c.id == factory_filter" value="{$ c.id $}">{$ c.code $} - {$ c.title $}</option>
+                </select>
+                </div>
+            </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="title">Từ khóa tìm kiếm:</label>
+            <div class="col-sm-4">
+                <input class="form-control" type="text" class="col-sm-10" ng-model="searchText" ng-change="log()" placeholder="Tìm kiếm một phần tên hoặc chính xác mã sản phẩm">
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="content p-4">
+            <div class="row">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Code</th>
+                      <th>Title</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="c in products track by $index">
+                      <td>{$ $index + 1  $}</td>
+                      <td>{$ c.code $}</td>
+                      <td>{$ c.title $}</td>
+                      <td>
+                          <button type="button" class="btn btn-primary" ng-click="del_product($index)">Delete</button>
+                          <button type="button" class="btn btn-primary" ng-click="view_product($index)">Edit</button>
+                      </td>
+                    </tr>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div>
+              Total: {$ total_products $}
+            </div>
+            <!--<div class="dataTables_paginate paging_simple_numbers" id="cate_paginate">-->
+              <!--<ul class="pagination pull-right">-->
+                <!--<li ng-class="{true: 'disabled'}[list_products.previous== null|| page== 1]">-->
+                      <!--<a aria-label="Previous" href="javascript:void(0)" ng-click="getPrevious($event)">-->
+                          <!--<span aria-hidden="true"><i class="fa fa-chevron-left"></i></span>-->
+                      <!--</a>-->
+                  <!--</li>-->
+                  <!--<li ng-show="page>3"><a href="javascript:void(0)" ng-click="setPage($event)">1</a></li>-->
+                  <!--<li ng-show="page>3"><a><i class="fa fa-ellipsis-h"></i></a></li>-->
+                  <!--<li ng-class="{true: 'active'}[page== i]" ng-repeat="i in pages"><a href="javascript:void(0)" ng-click="setPage($event)">{$ i $}</a></li>-->
+                  <!--<li ng-show="page+2<total"><a><i class="fa fa-ellipsis-h"></i></a></li>-->
+                  <!--<li ng-show="page+2<total"><a href="javascript:void(0)" ng-click="setPage($event)">{$ total $}</a></li>-->
+                  <!--<li ng-class="{true: 'disabled'}[list_products.next== null|| page== total]">-->
+                      <!--<a aria-label="Next" href="javascript:void(0)" ng-click="getNext($event)">-->
+                          <!--<span aria-hidden="true"><i class="fa fa-chevron-right"></i></span>-->
+                      <!--</a>-->
+                  <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+        </div>
+      </div>
+        <!-- Trigger the modal with a button -->
+        <button type="hidden" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="openModal">Open Modal</button>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">{$ current_product.title $}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                  <p>Tên sản phẩm:</p>
+                  <input type="text" class="form-control" ng-model="current_product.title">
+                  <p></p>
+                  <p>Mã sản phẩm:</p>
+                  <input type="text" disabled class="form-control" ng-model="current_product.code">
+                  <p></p>
+                  <p>Từ khóa định danh:</p>
+                  <input type="text" class="form-control" ng-model="current_product.key">
+                  <p></p>
+                  <p>Mô tả:</p>
+                  <input type="text" class="form-control" ng-model="current_product.description">
+                  <p></p>
+                  <p>Nhà sản xuất</p>
+                  <select class="form-control" id="sel2" ng-model="current_product.factory">
+                      <option ng-repeat="c in factories" ng-selected="c.id == current_product.factory"
+                              value="{$ c.id $}">{$ c.code $} - {$ c.title $}
+                      </option>
+                  </select>
+                  <p></p>
+                  <p>Ngành hàng</p>
+                  <select class="form-control" id="sel2" ng-model="current_product.category">
+                      <option ng-repeat="c in categories" ng-selected="c.id == current_product.category"
+                              value="{$ c.id $}">{$ c.code $} - {$ c.title $}
+                      </option>
+                  </select>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="update_product()">Update</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Cancel</button>
+              </div>
+            </div>
+
+          </div>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block footer_javascript %}
+    <script src="static/js/product/product.js"></script>
 {% endblock %}

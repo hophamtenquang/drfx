@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^api/v1/', include('api.urls')),
     url(r'^categories', include('categories.router')),
     url(r'^factories', include('manufacturies.router')),
+    url(r'^products-add', include('products.add_router')),
     url(r'^home', home_view, name='home'),
     url(r'^login', login_view, name='login'),
     url(r'^logout', logout_view, name='logout'),

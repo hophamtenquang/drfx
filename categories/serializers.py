@@ -7,7 +7,7 @@ from django.db.models import Q
 class CategoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('title', 'code', 'created_user')
+        fields = ('id', 'title', 'code', 'created_user')
 
     def validate(self, data):
 

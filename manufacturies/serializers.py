@@ -7,4 +7,4 @@ from django.db.models import Q
 class ManufactoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manufactory
-        fields = ('title', 'code', 'created_user')
+        fields = ('id', 'title', 'code', 'created_user')
