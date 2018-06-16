@@ -50,8 +50,18 @@ app.controller("productCtrl", function($scope, $http, $window) {
                 $scope.get_list_categories();
                 $scope.newCate = null;
             }, function (error_data) {
-                $scope.error.create = error_data.data.Exists[0];
-                console.log($scope.error.create);
+                console.log(error_data);
+                if (error_data.status == 400) {
+                    if(error_data.data.code) {
+                        $scope.error.code = 'Mã sản phẩm bị trùng';
+                    }
+                    else if(error_data.data.non_field_errors) {
+                        $scope.error.title = 'Không thể tạo vì tên ' + $scope.newproduct.title + 'hoặc từ khóa định vị'+ $scope.newproduct.key +' giống nhau với cùng 1 hãng';
+                    }
+                    else if(error_data.data.similar_title) {
+                        $scope.error.title = error_data.data.similar_title;
+                    }
+                }
             }
         );
         })
