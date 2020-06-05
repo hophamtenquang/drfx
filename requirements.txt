@@ -1,6 +1,6 @@
 certifi==2018.4.16
 chardet==3.0.4
-Django==1.11.13
+Django==1.11.29
 django-allauth==0.36.0
 django-rest-auth==0.9.3
 djangorestframework==3.8.2
